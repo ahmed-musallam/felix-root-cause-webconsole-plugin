@@ -2,4 +2,4 @@
 
 A webconsole for [Root Cause Tool](https://github.com/apache/felix/tree/trunk/rootcause)
 
-![Plugin Demo](root-cause-plugin.gif)
+![Plugin Demo](doc/root-cause-plugin.gif)
