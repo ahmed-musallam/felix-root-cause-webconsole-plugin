@@ -112,7 +112,9 @@ public class RootCausePlugin extends AbstractWebConsolePlugin {
       // thrown when component cannot be found. needs to be fixed in RootCauseCommand#rootcause
     }
     if (rootCause == null) {
-      causes.add("Component with name: "+ name + " Does not exist.");
+      causes.add("Component with name: \""+ name + "\" Does not exist.");
+      causes.add("Tip: Use the component full name, for example: "
+          + "\"com.ahmedmusallam.felix.webconsole.plugins.rootcause.RootCausePlugin\"");
     } else {
       new RootCausePrinter(causes::add).print(rootCause);
     }
