@@ -1,0 +1,11 @@
+.root-cause {
+  /*root*/
+}
+
+.root-cause .p-10 {
+  padding: 10px;
+}
+
+.root-cause-form__component-name {
+  width: 60%;
+}

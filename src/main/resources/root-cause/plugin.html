@@ -1,0 +1,27 @@
+<script src="root-cause/jquery-ui-1.12.1.custom/jquery-ui.min.js" type="text/javascript"></script>
+
+<script src="root-cause/scripts.js" type="text/javascript"></script>
+
+<link href="root-cause/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet"/>
+<link href="root-cause/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet"/>
+
+<link href="simple-plugin/styles.css" rel="stylesheet"/>
+<div class="root-cause" data-path="root-cause/rootcause.json">
+  <h1 class="root-cause-header p-10 ui-widget-header ui-corner-top">Component Issue Root Cause</h1>
+  <div class="ui-state-default p-10">
+    Finding the root cause of problems with OSGi declarative services components.
+  </div>
+  <form method="post" action="/system/console/depfinder">
+    <div class="root-cause-form p-10 ui-widget-header">
+      <span>Component Name: </span>
+      <input type="text" autocomplete="off" title="Enter an OSGI Component Name" class="root-cause-form__component-name ui-autocomplete-input">
+      <button type="button" class="root-cause-form__find-button ui-state-default ui-corner-all" style="min-width: 8em;">Find Cause</button>
+    </div>
+    <div class="p-10 root-cause__result ui-state-default">
+  
+    </div>
+    <div class="p-10 root-cause__loading ui-state-default" style="display:none">
+      Loading...
+    </div>
+  </form>
+</div>
