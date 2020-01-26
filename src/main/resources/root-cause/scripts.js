@@ -1,11 +1,11 @@
 $(function () {
 
   var componentsDeferred = $.getJSON("/system/console/components.json")
-  .done(function (resp) {
-    window.components = resp.data;
-  }).fail(function (err) {
-    console.error("Could not get components" , err)
-  })
+    .done(function (resp) {
+      window.components = resp.data;
+    }).fail(function (err) {
+      console.error("Could not get components", err);
+    })
 
   $.widget("custom.rootcause", {
     // default options
@@ -19,7 +19,7 @@ $(function () {
     _create: function () {
       this.path = this.element.data("path");
       this.findButton = this.element.find(".root-cause-form__find-button");
-      this.componentName = this.element.find(".root-cause-form__component-name")
+      this.componentName = this.element.find(".root-cause-form__component-name");
       this.result = this.element.find(".root-cause__result");
       this.loading = this.element.find(".root-cause__loading");
       var that = this;
@@ -40,9 +40,8 @@ $(function () {
       });
 
       if (location.hash) {
-        this.getRootCause(null, location.hash.replace("#", ""))
+        this.getRootCause(null, location.hash.replace("#", ""));
       }
-      //this._refresh();
     },
 
     // Called when created, and later when changing options
@@ -50,21 +49,21 @@ $(function () {
       var that = this;
       this.result.empty();
       this.options.rootCause
-      .filter(Boolean)
-      .forEach(function(line, i) {
-        line = line || "";
-        // https://stackoverflow.com/questions/25823914/javascript-count-spaces-before-first-character-of-a-string
-        var leadingSpaceCount = line.search(/\S/) + 1;
-        if (i == 0) {
-          that.result.append('<h3 class="bold f-14">Search Result:<h3>');
-        }
-        that.result.append(
-          $(
-            "<span class=\"inline-block\">"+ "&nbsp;&nbsp;".repeat(leadingSpaceCount) +"</span>"+
-            "<span class=\"inline-block f-12 root-cause-line\">" + line +"</span></br>"
-          )
-        );
-      })
+        .filter(Boolean)
+        .forEach(function (line, i) {
+          line = line || "";
+          // https://stackoverflow.com/questions/25823914/javascript-count-spaces-before-first-character-of-a-string
+          var leadingSpaceCount = line.search(/\S/) + 1;
+          if (i == 0) {
+            that.result.append('<h3 class="bold f-14">Search Result:<h3>');
+          }
+          that.result.append(
+            $(
+              "<span class=\"inline-block\">" + "&nbsp;&nbsp;".repeat(leadingSpaceCount) + "</span>" +
+              "<span class=\"inline-block f-12 root-cause-line\">" + line + "</span></br>"
+            )
+          );
+        })
 
       // Trigger a callback/event
       this._trigger("change");
@@ -80,12 +79,12 @@ $(function () {
         componentName = this.componentName.val().trim();
         location.hash = "#" + componentName;
       }
-      $.getJSON(this.path + "?name=" + componentName )
-      .always(function (result) {
-        that._setOption("rootCause", result);
-        that.loading.hide();
-        that.result.show();
-      })
+      $.getJSON(this.path + "?name=" + componentName)
+        .always(function (result) {
+          that._setOption("rootCause", result);
+          that.loading.hide();
+          that.result.show();
+        })
     },
 
     // _setOptions is called with a hash of all options that are changing
