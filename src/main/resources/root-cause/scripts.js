@@ -73,6 +73,7 @@ $(function () {
       var that = this;
       this.result.empty();
       this.loading.show();
+      this.result.hide();
       if (componentName) {
         this.componentName.val(componentName);
       } else {
@@ -83,6 +84,7 @@ $(function () {
       .always(function (result) {
         that._setOption("rootCause", result);
         that.loading.hide();
+        that.result.show();
       })
     },
 
