@@ -38,7 +38,11 @@ $(function () {
         // _on won't call random when widget is disabled
         click: "getRootCause"
       });
-      this._refresh();
+
+      if (location.hash) {
+        this.getRootCause(null, location.hash.replace("#", ""))
+      }
+      //this._refresh();
     },
 
     // Called when created, and later when changing options
@@ -47,18 +51,35 @@ $(function () {
       this.result.empty();
       this.options.rootCause
       .filter(Boolean)
-      .forEach(function(line) {
-        that.result.append($("<span>" + line.replace(/ /g, "&nbsp;&nbsp;") +"</span></br>"));
+      .forEach(function(line, i) {
+        line = line || "";
+        // https://stackoverflow.com/questions/25823914/javascript-count-spaces-before-first-character-of-a-string
+        var leadingSpaceCount = line.search(/\S/) + 1;
+        if (i == 0) {
+          that.result.append('<h3 class="bold f-14">Search Result:<h3>');
+        }
+        that.result.append(
+          $(
+            "<span class=\"inline-block\">"+ "&nbsp;&nbsp;".repeat(leadingSpaceCount) +"</span>"+
+            "<span class=\"inline-block f-12 root-cause-line\">" + line +"</span></br>"
+          )
+        );
       })
 
       // Trigger a callback/event
       this._trigger("change");
     },
-    getRootCause: function (event) {
+    getRootCause: function (event, componentName) {
       var that = this;
       this.result.empty();
       this.loading.show();
-      $.getJSON(this.path + "?name=" + this.componentName.val())
+      if (componentName) {
+        this.componentName.val(componentName);
+      } else {
+        componentName = this.componentName.val().trim();
+        location.hash = "#" + componentName;
+      }
+      $.getJSON(this.path + "?name=" + componentName )
       .always(function (result) {
         that._setOption("rootCause", result);
         that.loading.hide();
