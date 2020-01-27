@@ -1,0 +1,8 @@
+image:
+  file: Dockerfile
+ports:
+  - port: 8080
+    onOpen: open-browser
+tasks:
+  - init: java -jar /home/gitpod/org.apache.sling.starter-11.jar
+    command: sh deploy.sh

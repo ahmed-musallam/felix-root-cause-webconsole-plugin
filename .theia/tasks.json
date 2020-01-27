@@ -1,0 +1,9 @@
+{
+  "tasks": [
+     {
+       "label": "Deploy",
+       "type": "shell",
+       "command": "./deploy.sh"
+     }
+  ]
+}
