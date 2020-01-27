@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # For use in gitpod
-
+SLING_PORT=8080
 
 # wait untill sling instance is up
-bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080/starter/index.html)" != "200" ]]; do sleep 5; done'
+gp await-port $SLING_PORT
 # deploy to sling instance
-mvn clean install -PautoInstallBundle -Dfelix.port=8080
+mvn clean install -PautoInstallBundle -Dfelix.port=$SLING_PORT
+# get url preview it
+PREVIEW_URL=$(gp url $SLING_PORT)
+gp preview $PREVIEW_URL/system/console/root-cause
