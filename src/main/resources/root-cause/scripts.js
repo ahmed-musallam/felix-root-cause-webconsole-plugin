@@ -1,12 +1,5 @@
 $(function () {
 
-  var componentsDeferred = $.getJSON("/system/console/components.json")
-    .done(function (resp) {
-      window.components = resp.data;
-    }).fail(function (err) {
-      console.error("Could not get components", err);
-    })
-
   $.widget("custom.rootcause", {
     // default options
     options: {
@@ -17,22 +10,15 @@ $(function () {
 
     // The constructor
     _create: function () {
-      this.path = this.element.data("path");
+      this.path = this.element.data("rootcause");
+      this.componentsPath = this.element.data("components");
       this.findButton = this.element.find(".root-cause-form__find-button");
       this.componentName = this.element.find(".root-cause-form__component-name");
       this.result = this.element.find(".root-cause__result");
       this.loading = this.element.find(".root-cause__loading");
-      var that = this;
 
-      componentsDeferred.done(function (resp) {
-        var names = resp.data.map(function (item) {
-          return item.name;
-        })
-        that.componentName.autocomplete({
-          source: names,
-          minLength: 3
-        });
-      })
+      this.setupAutoComplete();
+
       // Bind click events on the changer button to the random method
       this._on(this.findButton, {
         // _on won't call random when widget is disabled
@@ -42,6 +28,20 @@ $(function () {
       if (location.hash) {
         this.getRootCause(null, location.hash.replace("#", ""));
       }
+    },
+    // setup autocomplete widget
+    setupAutoComplete() {
+      var that = this;
+      $.getJSON(this.componentsPath)
+      .done(function (components) {
+
+        that.componentName.autocomplete({
+          source: components,
+          minLength: 3
+        });
+       }).fail(function (err) {
+        console.error("Could not get components", err);
+      })
     },
 
     // Called when created, and later when changing options
