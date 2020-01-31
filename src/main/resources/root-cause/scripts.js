@@ -75,7 +75,7 @@ $(function () {
       return str
         .replace(/\b(unsatisfied|missing)\b/g, '<span class="c-red">$1</span>')
         .replace(/\b(satisfied)\b/g, '<span class="c-green">$1</span>')
-        .replace(/([a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)+)/g, '<span class="c-mediumblue">$1</span>');
+        .replace(/([a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)+)/g, '<span class="c-mediumblue">$1</span>'); // thanks Paul!
     },
     getRootCause: function (event, componentName) {
       var that = this;
