@@ -43,3 +43,15 @@
 .root-cause .inline-block {
   display: inline-block;
 }
+
+.root-cause .c-red {
+  color: red;
+}
+
+.root-cause .c-green {
+  color: green;
+}
+
+.root-cause .c-mediumblue {
+  color: mediumblue;
+}

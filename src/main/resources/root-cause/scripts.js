@@ -52,6 +52,7 @@ $(function () {
         .filter(Boolean)
         .forEach(function (line, i) {
           line = line || "";
+          line = that.highlight(line);
           // https://stackoverflow.com/questions/25823914/javascript-count-spaces-before-first-character-of-a-string
           var leadingSpaceCount = line.search(/\S/) + 1;
           if (i == 0) {
@@ -67,6 +68,14 @@ $(function () {
 
       // Trigger a callback/event
       this._trigger("change");
+    },
+    // Highlights string for better readability
+    highlight: function (str) {
+      if (!str && !str.replace) return;
+      return str
+        .replace(/\b(unsatisfied|missing)\b/g, '<span class="c-red">$1</span>')
+        .replace(/\b(satisfied)\b/g, '<span class="c-green">$1</span>')
+        .replace(/([a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)+)/g, '<span class="c-mediumblue">$1</span>');
     },
     getRootCause: function (event, componentName) {
       var that = this;
